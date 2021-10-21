@@ -13,14 +13,17 @@ import javax.security.auth.login.LoginException;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 
 import discord.commands.StatschannelCommand;
 import discord.listener.CommandListner;
 import discord.listener.JoinListener;
 import discord.listener.ReactionListener;
+import discord.listener.VoiceListener;
 import discord.manage.CommandManager;
 import discord.manage.LiteSQL;
 import discord.manage.SQLManager;
+import discord.musik.PlayerManager;
 //import discord.listener.VoiceListener;
 //import net.dv8tion.jda.api.JDA;
 //import net.dv8tion.jda.api.JDABuilder;
@@ -38,7 +41,8 @@ public class Launch {
 	private CommandManager cmdMan;	
 	public ShardManager shardMan;
 	private Thread loop;
-	public AudioPlayerManager playerManager;
+	public AudioPlayerManager audioPlayerManager;
+	public PlayerManager playerManager;
 	
 
 	public static void main(String[] args) {
@@ -46,40 +50,9 @@ public class Launch {
 			new Launch();
 		} catch (LoginException e) {
 			e.printStackTrace();
-			System.err.println(e.getMessage());
 		}
 
 	}
-
-	/*
-	 * Using JDA
-	 */
-
-	/*
-	 * public Launch() throws LoginException { INSTANCE = this;
-	 * 
-	 * 
-	 * 
-	 * final String token =
-	 * "ODk3MTc3MDQ3MDkxMjU3Mzk1.YWR3PA.3-gZrsW1FUjOtN90YdVNrDM5mOE";
-	 * 
-	 * JDABuilder jdaBuilder = JDABuilder.createDefault(token);
-	 * jdaBuilder.setActivity(Activity.playing("-"+" is the Current Prefix"));
-	 * jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-	 * 
-	 * this.cmdMan = new CommandManager();
-	 * 
-	 * 
-	 * //listen to the changes jdaBuilder.addEventListeners(new CommandListner());
-	 * jda = jdaBuilder.build();
-	 * 
-	 * System.out.println("```diff\r\n+ Bot is Online!\r\n```");
-	 * 
-	 * 
-	 * shutdown(); runLoop();
-	 * 
-	 * }
-	 */
 
 	/*
 	 * Using ShardManger
@@ -97,19 +70,25 @@ public class Launch {
 		jdaBuilder.setActivity(Activity.playing("-" + " is the Current Prefix"));
 		jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
 		
-		this.playerManager = new DefaultAudioPlayerManager();
+		this.audioPlayerManager = new DefaultAudioPlayerManager();
+		this.playerManager = new PlayerManager();
 		
 		this.cmdMan = new CommandManager();
 
 		// listen to the changes
 		jdaBuilder.addEventListeners(new CommandListner());
-		// jdaBuilder.addEventListeners(new VoiceListener());
+		
+		//Todo move to private VoiceChannel
+		//jdaBuilder.addEventListeners(new VoiceListener());
 		jdaBuilder.addEventListeners(new ReactionListener());
 		jdaBuilder.addEventListeners(new JoinListener());
 		shardMan = jdaBuilder.build();
 
 		System.out.println("```diff\r\n+ Bot is Online!\r\n```");
-
+		
+		AudioSourceManagers.registerRemoteSources(audioPlayerManager);
+		audioPlayerManager.getConfiguration().setFilterHotSwapEnabled(true);
+		
 		shutdown();
 		runLoop();
 
@@ -269,5 +248,35 @@ public class Launch {
 	public CommandManager getCmdMan() {
 		return cmdMan;
 	}
+	
+	/*
+	 * Using JDA
+	 */
+
+	/*
+	 * public Launch() throws LoginException { INSTANCE = this;
+	 * 
+	 * 
+	 * 
+	 * final String token =
+	 * "ODk3MTc3MDQ3MDkxMjU3Mzk1.YWR3PA.3-gZrsW1FUjOtN90YdVNrDM5mOE";
+	 * 
+	 * JDABuilder jdaBuilder = JDABuilder.createDefault(token);
+	 * jdaBuilder.setActivity(Activity.playing("-"+" is the Current Prefix"));
+	 * jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+	 * 
+	 * this.cmdMan = new CommandManager();
+	 * 
+	 * 
+	 * //listen to the changes jdaBuilder.addEventListeners(new CommandListner());
+	 * jda = jdaBuilder.build();
+	 * 
+	 * System.out.println("```diff\r\n+ Bot is Online!\r\n```");
+	 * 
+	 * 
+	 * shutdown(); runLoop();
+	 * 
+	 * }
+	 */
 
 }
