@@ -11,6 +11,9 @@ import java.util.Random;
 
 import javax.security.auth.login.LoginException;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+
 import discord.commands.StatschannelCommand;
 import discord.listener.CommandListner;
 import discord.listener.JoinListener;
@@ -31,10 +34,12 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 public class Launch {
 
 	public static Launch INSTANCE;
-	private CommandManager cmdMan;
-	// public JDA jda;
+	
+	private CommandManager cmdMan;	
 	public ShardManager shardMan;
 	private Thread loop;
+	public AudioPlayerManager playerManager;
+	
 
 	public static void main(String[] args) {
 		try {
@@ -91,7 +96,9 @@ public class Launch {
 
 		jdaBuilder.setActivity(Activity.playing("-" + " is the Current Prefix"));
 		jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-
+		
+		this.playerManager = new DefaultAudioPlayerManager();
+		
 		this.cmdMan = new CommandManager();
 
 		// listen to the changes
@@ -118,7 +125,9 @@ public class Launch {
 						shutdown = true;
 						if (shardMan != null) {
 							shardMan.setStatus(OnlineStatus.OFFLINE);
-
+							
+							
+							
 							shardMan.shutdown();
 							LiteSQL.disconnect();
 							
@@ -170,60 +179,61 @@ public class Launch {
 	int[] colors = new int[] {0xff9478, 0xd2527f, 0x00b5cc, 0x19b5fe, 0x2ecc71, 0x23cba7, 0x00e640, 0x8c14fc, 0x9f5afd, 0x663399};
 	int next = 30;
 
-//	public void onSecond() {
-//		if (next <= 0) {
-//			Random rand = new Random();
-//			int i = rand.nextInt(status.length);
-//			shardMan.getShards().forEach(jda -> {
-//				String text = status[i].replaceAll("%members", "" + jda.getUsers().size());
-//				jda.getPresence().setActivity(Activity.playing(text));
-//			});
-//			next = 15;
-//		} else {
-//			next--;
-//		}
-//	}
 	public void onSecond() {
-		//System.out.println("Next: " + next);
-		
-		if(next%5 == 0) {
-			if(!hasStarted) {
-				hasStarted = true;
-				//StatschannelCommand.onStartUP();
-			}
-			
+		if (next <= 0) {
 			Random rand = new Random();
-			
-			int color = rand.nextInt(colors.length);
-			for(Guild guild : shardMan.getGuilds()) {
-				Role role = guild.getRoleById(545232594938101760l);
-				role.getManager().setColor(colors[color]).queue();
-			}
-			
-			
 			int i = rand.nextInt(status.length);
-			
 			shardMan.getShards().forEach(jda -> {
 				String text = status[i].replaceAll("%members", "" + jda.getUsers().size());
-				
 				jda.getPresence().setActivity(Activity.playing(text));
 			});
-			
-			//StatschannelCommand.checkStats();
-			
-			if(next == 0) {
-				next = 60;
-				
-				onCheckTimeRanks();
-			}
-			else {
-				next--;
-			}
-		}
-		else {
+			next = 15;
+		} else {
 			next--;
 		}
 	}
+//	public void onSecond() {
+//		//System.out.println("Next: " + next);
+//		
+//		if(next%5 == 0) {
+//			if(!hasStarted) {
+//				hasStarted = true;
+//				//StatschannelCommand.onStartUP();
+//			}
+//			
+//			Random rand = new Random();
+//			
+//			int color = rand.nextInt(colors.length);
+//			for(Guild guild : shardMan.getGuilds()) {
+//				//Role role = guild.getRoleById(545232594938101760l);
+//				Role role = guild.getBotRole();
+//				role.getManager().setColor(colors[color]).queue();
+//			}
+//			
+//			
+//			int i = rand.nextInt(status.length);
+//			
+//			shardMan.getShards().forEach(jda -> {
+//				String text = status[i].replaceAll("%members", "" + jda.getUsers().size());
+//				
+//				jda.getPresence().setActivity(Activity.playing(text));
+//			});
+//			
+//			//StatschannelCommand.checkStats();
+//			
+//			if(next == 0) {
+//				next = 60;
+//				
+//				onCheckTimeRanks();
+//			}
+//			else {
+//				next--;
+//			}
+//		}
+//		else {
+//			next--;
+//		}
+//	}
 	
 
 	public void onCheckTimeRanks() {

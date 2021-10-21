@@ -21,49 +21,53 @@ public class RoleCreation implements ServerCommand{
 		String[] args = message.getContentDisplay().split("\\s+");
 		int length = args.length;
 		
-		if(length < 1) {
+		if(length > 1) {
 			StringBuilder builder = new StringBuilder();
 			
 			if(args[length-1].startsWith("#") && length > 2) {
-				for(int i = 0; i < length - 1; i++) {
+				for(int i = 1; i < length - 1; i++) {
 					builder.append(args[i]+" ");
+				}
 					String hexCode = args[length-1];
 					
 					String roleName = builder.toString().trim();
 					channel.sendTyping().queue();
-					Color color = Color.decode(hexCode);
+					
+					
 					guild.createRole().queue(role -> {
+						Color color = Color.decode(hexCode);
 						role.getManager().setName(roleName).setColor(color).setPermissions(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY, Permission.VOICE_SPEAK).queue();
 						EmbedBuilder embed = new EmbedBuilder();
-						embed.setDescription("Role "+ roleName + " erstellt Horraaay!");
+						embed.setDescription("Role "+ role.getAsMention() + " erstellt Horraaay!");
 						embed.setColor(color);
-						channel.sendMessage(embed.build());
+						channel.sendMessage(embed.build()).queue();
 					});
 					
-				}
+				
 			}else {
-				for(int i = 0; i < length; i++) {
+				for(int i = 1; i < length; i++) {
 					builder.append(args[i]+" ");
-					
+				}
 					String roleName = builder.toString().trim();
 					channel.sendTyping().queue();
 					Random rand  = new Random();
 					
-				//	Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-					Color color = new Color(255,255,255);
+					
+				//	Color color = new Color(255,255,255);
 					guild.createRole().queue(role -> {
+						Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
 						role.getManager().setName(roleName).setColor(color).setPermissions(Permission.MESSAGE_READ, Permission.MESSAGE_HISTORY, Permission.VOICE_SPEAK).queue();
 						EmbedBuilder embed = new EmbedBuilder();
-						embed.setDescription("Role "+ roleName + " erstellt Horraaay!");
+						embed.setDescription("Role "+ role.getAsMention() + " erstellt Horraaay!");
 						embed.setColor(color);
-						channel.sendMessage(embed.build());
+						channel.sendMessage(embed.build()).queue();
 					});
-				}
+				
 			}
 		}else {
 			EmbedBuilder builder = new EmbedBuilder();
-			builder.setDescription("Bist du doof? -createrole <Name>Farbe>");
-			channel.sendMessage(builder.build());
+			builder.setDescription("Bist du doof? -createrole <Name> <Farbe>");
+			channel.sendMessage(builder.build()).queue();
 		}
 		
 		
