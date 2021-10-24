@@ -2,12 +2,14 @@ package discord.musik.commands;
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import discord.Launch;
 import discord.commands.types.ServerCommand;
 import discord.musik.AudioLoadResult;
 import discord.musik.MusicController;
+import discord.musik.MusicUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -21,6 +23,8 @@ public class PlayCommand implements ServerCommand{
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
+		
+		message.delete().queueAfter(2, TimeUnit.SECONDS);
 		
 		Random rand  = new Random();
 		Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
@@ -36,6 +40,9 @@ public class PlayCommand implements ServerCommand{
 					AudioPlayerManager apm = Launch.INSTANCE.audioPlayerManager;
 					AudioManager manager = vc.getGuild().getAudioManager();
 					manager.openAudioConnection(vc);
+					
+					
+					MusicUtil.updateChannel(channel);
 					
 					
 					StringBuilder strBuilder = new StringBuilder();
