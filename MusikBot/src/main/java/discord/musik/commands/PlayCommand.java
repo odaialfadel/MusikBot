@@ -2,7 +2,6 @@ package discord.musik.commands;
 
 import java.awt.Color;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import discord.Launch;
@@ -24,7 +23,6 @@ public class PlayCommand implements ServerCommand{
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
 		
-		message.delete().queueAfter(2, TimeUnit.SECONDS);
 		
 		Random rand  = new Random();
 		Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
@@ -56,6 +54,7 @@ public class PlayCommand implements ServerCommand{
 					}
 					
 					apm.loadItem(url, new AudioLoadResult(controller,url));
+					
 					
 				}else {
 					

@@ -3,6 +3,8 @@ package discord.musik.commands;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
@@ -14,17 +16,24 @@ public class Queue {
 	private List<AudioTrack> queuelist;
 	private MusicController controller;
 	
+	//to end the track and begin another one by using poll Method
+	private final BlockingQueue<AudioTrack> list;
+
+
 
 	public Queue(MusicController controller) {
 		this.setController(controller);
 		this.setQueuelist(new ArrayList<AudioTrack>());
+		this.list = new LinkedBlockingQueue<>();
 	}
 	
 	public boolean next() {
+		
 		if(this.queuelist.size() >= 1) {
 			AudioTrack track = queuelist.remove(0);
 			
 			if(track != null) {
+				
 				this.controller.getPlayer().playTrack(track);
 				return true;
 			}
@@ -33,6 +42,8 @@ public class Queue {
 		
 		return false;
 	}
+	
+	
 	
 	public void addTrackToQueue(AudioTrack track) {
 		this.queuelist.add(track);
@@ -55,9 +66,31 @@ public class Queue {
 	public void setQueuelist(List<AudioTrack> queuelist) {
 		this.queuelist = queuelist;
 	}
-	public void shuffel() {
-		Collections.shuffle(queuelist);
-	}
 	
 
+	public void shuffel() {
+		Collections.shuffle(queuelist);
+		
+		for(AudioTrack track : queuelist) {
+			list.add(track);
+		}
+		
+		
+		this.controller.getPlayer().startTrack(list.poll(), false);
+
+	}
+	public void nextTrack() {
+		
+		
+		for(AudioTrack track : queuelist) {
+			list.add(track);
+		}
+		
+		
+		this.controller.getPlayer().startTrack(list.poll(), false);
+		//queuelist.indexOf(controller.getPlayer().getPlayingTrack());
+		
+
+	}
+	
 }

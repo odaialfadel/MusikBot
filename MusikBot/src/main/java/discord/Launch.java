@@ -15,11 +15,11 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 
-import discord.commands.StatschannelCommand;
+//import discord.commands.StatschannelCommand;
 import discord.listener.CommandListner;
 import discord.listener.JoinListener;
 import discord.listener.ReactionListener;
-import discord.listener.VoiceListener;
+//import discord.listener.VoiceListener;
 import discord.manage.CommandManager;
 import discord.manage.LiteSQL;
 import discord.manage.SQLManager;
@@ -30,10 +30,18 @@ import discord.musik.PlayerManager;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
+//import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+
+
+/*
+ * @Authur Odai Al Fadel
+ * @Date 12.11.2021
+ * @Name MusikBot
+ * @Version Beta_1.0
+ */
 public class Launch {
 
 	public static Launch INSTANCE;
@@ -171,48 +179,6 @@ public class Launch {
 			next--;
 		}
 	}
-//	public void onSecond() {
-//		//System.out.println("Next: " + next);
-//		
-//		if(next%5 == 0) {
-//			if(!hasStarted) {
-//				hasStarted = true;
-//				//StatschannelCommand.onStartUP();
-//			}
-//			
-//			Random rand = new Random();
-//			
-//			int color = rand.nextInt(colors.length);
-//			for(Guild guild : shardMan.getGuilds()) {
-//				//Role role = guild.getRoleById(545232594938101760l);
-//				Role role = guild.getBotRole();
-//				role.getManager().setColor(colors[color]).queue();
-//			}
-//			
-//			
-//			int i = rand.nextInt(status.length);
-//			
-//			shardMan.getShards().forEach(jda -> {
-//				String text = status[i].replaceAll("%members", "" + jda.getUsers().size());
-//				
-//				jda.getPresence().setActivity(Activity.playing(text));
-//			});
-//			
-//			//StatschannelCommand.checkStats();
-//			
-//			if(next == 0) {
-//				next = 60;
-//				
-//				onCheckTimeRanks();
-//			}
-//			else {
-//				next--;
-//			}
-//		}
-//		else {
-//			next--;
-//		}
-//	}
 	
 
 	public void onCheckTimeRanks() {
@@ -249,34 +215,5 @@ public class Launch {
 		return cmdMan;
 	}
 	
-	/*
-	 * Using JDA
-	 */
-
-	/*
-	 * public Launch() throws LoginException { INSTANCE = this;
-	 * 
-	 * 
-	 * 
-	 * final String token =
-	 * "ODk3MTc3MDQ3MDkxMjU3Mzk1.YWR3PA.3-gZrsW1FUjOtN90YdVNrDM5mOE";
-	 * 
-	 * JDABuilder jdaBuilder = JDABuilder.createDefault(token);
-	 * jdaBuilder.setActivity(Activity.playing("-"+" is the Current Prefix"));
-	 * jdaBuilder.setStatus(OnlineStatus.DO_NOT_DISTURB);
-	 * 
-	 * this.cmdMan = new CommandManager();
-	 * 
-	 * 
-	 * //listen to the changes jdaBuilder.addEventListeners(new CommandListner());
-	 * jda = jdaBuilder.build();
-	 * 
-	 * System.out.println("```diff\r\n+ Bot is Online!\r\n```");
-	 * 
-	 * 
-	 * shutdown(); runLoop();
-	 * 
-	 * }
-	 */
 
 }

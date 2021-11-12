@@ -19,7 +19,6 @@ import discord.musik.commands.Queue;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.managers.AudioManager;
 
 public class TrackScheduler extends AudioEventAdapter {
 
@@ -90,22 +89,19 @@ public class TrackScheduler extends AudioEventAdapter {
 		
 	}
 
+	
+	 
 	@Override
 	public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
 		long guildid = Launch.INSTANCE.playerManager.getGuildByPlayerHash(player.hashCode());
-		Guild guild = Launch.INSTANCE.shardMan.getGuildById(guildid);
+
 		
 		if(endReason.mayStartNext) {
 			MusicController controller = Launch.INSTANCE.playerManager.getController(guildid);
 			Queue queue = controller.getQueue();
 			
-			if(queue.next()) {
-				return;
-			}	
+			queue.nextTrack();
 		}
-			AudioManager manager = guild.getAudioManager();
-			player.stopTrack();
-			manager.closeAudioConnection();
-		
+
 	}
 }

@@ -12,7 +12,6 @@ public class MusicController {
 	private Guild guild;
 	private AudioPlayer player;
 	private Queue queue;
-	
 	public MusicController(Guild guild) {
 		this.guild = guild;
 		this.player = Launch.INSTANCE.audioPlayerManager.createPlayer();
