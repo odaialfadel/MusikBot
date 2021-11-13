@@ -67,6 +67,7 @@
 
 
   <dependencies>
+  
   	<dependency>
     	<groupId>com.sedmelluq</groupId>
     	<artifactId>lavaplayer</artifactId>
