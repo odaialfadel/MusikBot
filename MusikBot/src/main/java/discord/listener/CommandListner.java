@@ -37,7 +37,9 @@ public class CommandListner extends ListenerAdapter {
 					if (!Launch.INSTANCE.getCmdMan().preform(args[0], event.getMember(), channel, event.getMessage())) {
 						channel.sendMessage("```diff\r\n- Kommando ist nicht valid!!!\r\n```").queue();
 					}
+					
 				}
+				
 			}
 			if(channel.getIdLong()==899709642601549874l) {
 				CounterGame.countUpdate(channel, event.getMessage());

@@ -21,8 +21,8 @@ public class ClientInfo implements ServerCommand {
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-		message.delete().queue();
-
+		
+		//damit man sehen kann, dass das Bot gerade tippt
 		channel.sendTyping().queue();
 		List<Member> ment = message.getMentionedMembers();
 
@@ -31,13 +31,14 @@ public class ClientInfo implements ServerCommand {
 				onInfo(member, m, channel);
 			}
 		}
+		message.delete().queue();
 
 	}
 
 	private void onInfo(Member requester, Member m, TextChannel channel) {
 
 		EmbedBuilder builder = new EmbedBuilder();
-		builder.setFooter("Requested by " + requester.getEffectiveName());
+		builder.setFooter("Angefordert von " + requester.getEffectiveName());
 		builder.setColor(0x23cba7);
 		builder.setTimestamp(OffsetDateTime.now());
 		builder.setThumbnail(m.getUser().getEffectiveAvatarUrl());
@@ -46,6 +47,8 @@ public class ClientInfo implements ServerCommand {
 
 		formatDate(parseDate(m.getTimeCreated().toString()), "yyyy-MM-dd hh:mm:ss");
 		parseDate(m.getTimeCreated().toString()).toString();
+		
+		//Daten holen und ausgeben
 		strBuilder.append("User " + m.getAsMention() + "\n");
 		strBuilder.append("ClientID: " + m.getId() + "\n");
 		strBuilder.append(
@@ -60,14 +63,15 @@ public class ClientInfo implements ServerCommand {
 			roleBuilder.append(role.getAsMention() + " ");
 		}
 		strBuilder.append(roleBuilder.toString().trim() + "\n");
-
+		
 		builder.setDescription(strBuilder);
-		channel.sendMessage(builder.build()).complete().delete().queueAfter(50, TimeUnit.SECONDS);
+		channel.sendMessage(builder.build()).complete().delete().queueAfter(120, TimeUnit.SECONDS);
 	}
-
+	// um das Datum egal in welcher Format in den format den ich will umwandeln
 	public Date parseDate(String inputDate) {
 
 		Date outputDate = null;
+		//die meisten Datumformaten die es gibt
 		String[] possibleDateFormats = { "yyyy.MM.dd G 'at' HH:mm:ss z", "EEE, MMM d, ''yy", "h:mm a",
 				"hh 'o''clock' a, zzzz", "K:mm a, z", "yyyyy.MMMMM.dd GGG hh:mm aaa", "EEE, d MMM yyyy HH:mm:ss Z",
 				"yyMMddHHmmssZ", "yyyy-MM-dd'T'HH:mm:ss.SSSZ", "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", "YYYY-'W'ww-u",
@@ -82,7 +86,7 @@ public class ClientInfo implements ServerCommand {
 		}
 		return outputDate;
 	}
-
+	//Datum umwandeln in einer bestimmten Format yyyy-MM-dd hh:mm:ss
 	public String formatDate(Date date, String requiredDateFormat) {
 		SimpleDateFormat df = new SimpleDateFormat(requiredDateFormat);
 		String outputDateFormatted = df.format(date);

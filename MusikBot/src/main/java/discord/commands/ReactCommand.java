@@ -2,7 +2,6 @@ package discord.commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import discord.commands.types.ServerCommand;
 import net.dv8tion.jda.api.entities.Emote;
@@ -14,7 +13,7 @@ public class ReactCommand implements ServerCommand{
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-		message.delete().queueAfter(4,TimeUnit.SECONDS);
+		
 		//args[0] args[1] args[2] ..... emojis
 		
 		String[] args = message.getContentDisplay().split("\\s+");
@@ -45,6 +44,7 @@ public class ReactCommand implements ServerCommand{
 				
 			} catch (NumberFormatException e) { }
 		}
+		message.delete().queue();
 	}
 
 }

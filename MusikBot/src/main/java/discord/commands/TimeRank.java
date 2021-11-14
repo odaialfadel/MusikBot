@@ -1,6 +1,7 @@
 package discord.commands;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import discord.commands.types.ServerCommand;
 import discord.manage.LiteSQL;
@@ -14,7 +15,7 @@ public class TimeRank implements ServerCommand {
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-
+		
 		     //-timerank @User
 			//RollenID 582279555021012992
 			
@@ -29,8 +30,9 @@ public class TimeRank implements ServerCommand {
 					guild.addRoleToMember(memb, role).queue();
 					
 					LiteSQL.onUpdate("INSERT INTO timeranks(userid, guildid) VALUES(" + memb.getIdLong() + ", " + guild.getIdLong() + ")");
-					
+					message.delete().queue();
 					channel.sendMessage("Rolle hinzugefügt.").queue();
+					
 				}
 			}
 		}

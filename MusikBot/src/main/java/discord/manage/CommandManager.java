@@ -57,6 +57,7 @@ public class CommandManager {
 		ServerCommand cmd;
 		if((cmd = this.commands.get(command.toLowerCase())) != null){
 			cmd.preformCommand(m, channel, message);
+
 			return true;
 		}
 		

@@ -17,7 +17,7 @@ public class ClearCommand implements ServerCommand{
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-		
+
 		if(member.hasPermission(channel,Permission.MESSAGE_MANAGE)) {
 			
 			//-clear 3

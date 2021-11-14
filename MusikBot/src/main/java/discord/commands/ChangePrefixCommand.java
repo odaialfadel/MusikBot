@@ -36,7 +36,7 @@ public class ChangePrefixCommand implements ServerCommand{
 				builder.setColor(color);
 				builder.setFooter("Powered by Odai.");
 				builder.setTimestamp(OffsetDateTime.now());
-				
+				message.delete().queue();
 				channel.sendMessage(builder.build()).queue();
 				return;
 			}catch(NumberFormatException e){

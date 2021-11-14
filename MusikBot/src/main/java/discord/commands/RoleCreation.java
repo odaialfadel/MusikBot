@@ -40,6 +40,7 @@ public class RoleCreation implements ServerCommand{
 						EmbedBuilder embed = new EmbedBuilder();
 						embed.setDescription("Role "+ role.getAsMention() + " erstellt Horraaay!");
 						embed.setColor(color);
+						message.delete().queue();
 						channel.sendMessage(embed.build()).queue();
 					});
 					

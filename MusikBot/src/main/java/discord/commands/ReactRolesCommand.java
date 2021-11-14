@@ -14,8 +14,6 @@ public class ReactRolesCommand implements ServerCommand {
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-		message.delete().queue();
-
 		// args[0] args[1] args[2] args[3] args[4]
 		// args[0] args[1] args[2] :ok: @Rolle
 
@@ -59,7 +57,9 @@ public class ReactRolesCommand implements ServerCommand {
 			
 		} else {
 			channel.sendMessage("Bitte benutze `-reactrole #channel messageID :emote: @Rolle`").queue();
+			
 		}
+			message.delete().queue();
 	}
 
 }
