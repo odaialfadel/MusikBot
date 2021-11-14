@@ -93,6 +93,18 @@
     	<artifactId>sqlite-jdbc</artifactId>
     	<version>3.36.0.3</version>
 	</dependency>
+	<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1208</version>
+	</dependency>
+		
+	<dependency>
+  			<groupId>com.afrunt.randomjoke</groupId>
+  			<artifactId>random-joke-crawler</artifactId>
+  			<version>0.1.8</version>
+	</dependency>
+	
   </dependencies>
   
   

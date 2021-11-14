@@ -28,7 +28,7 @@ public class HugCommand implements ServerCommand {
 				send(member, channel, message);
 			} else {
 				DecimalFormat df = new DecimalFormat("0.00");
-				channel.sendMessage("Du muust noch "
+				channel.sendMessage("Du musst noch "
 						+ df.format(3000.0d - (System.currentTimeMillis() - time) / 1000.0d) + "Sekunden warten")
 						.queue();
 			}
@@ -38,7 +38,7 @@ public class HugCommand implements ServerCommand {
 		}
 	}
 
-	public void send(Member member, TextChannel channel, Message message) {
+	public void send(Member member, TextChannel channel, Message message) {		
 		channel.sendMessage(member.getAsMention() + " umarmt sich selbst.").queue();
 	}
 

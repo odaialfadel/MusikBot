@@ -2,10 +2,12 @@ package discord.manage;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import discord.commands.ChangePrefixCommand;
 import discord.commands.ClearCommand;
 import discord.commands.ClientInfo;
 import discord.commands.HelpCommand;
 import discord.commands.HugCommand;
+import discord.commands.JokeCommand;
 import discord.commands.PreviewCommand;
 import discord.commands.ReactCommand;
 import discord.commands.ReactRolesCommand;
@@ -32,6 +34,7 @@ public class CommandManager {
 		this.commands=new ConcurrentHashMap<>();
 		
 		this.commands.put("clear", new ClearCommand());
+		this.commands.put("joke", new JokeCommand());
 		this.commands.put("help", new HelpCommand());
 		this.commands.put("hug", new HugCommand());
 		this.commands.put("info", new ClientInfo());
@@ -46,6 +49,7 @@ public class CommandManager {
 		this.commands.put("stop", new StopCommand());
 		this.commands.put("random", new SchuffelCommand());
 		this.commands.put("ti", new TrackInfoCommand());
+		this.commands.put("prefix", new ChangePrefixCommand());
 		
 	}
 	public boolean preform(String command,Member m, TextChannel channel, Message message) {

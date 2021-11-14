@@ -74,23 +74,15 @@ public class Queue {
 		for(AudioTrack track : queuelist) {
 			list.add(track);
 		}
-		
-		
 		this.controller.getPlayer().startTrack(list.poll(), false);
-
 	}
 	public void nextTrack() {
-		
-		
 		for(AudioTrack track : queuelist) {
 			list.add(track);
 		}
-		
-		
+
 		this.controller.getPlayer().startTrack(list.poll(), false);
 		//queuelist.indexOf(controller.getPlayer().getPlayingTrack());
-		
-
 	}
 	
 }
