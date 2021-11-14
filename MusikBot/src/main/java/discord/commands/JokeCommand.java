@@ -14,13 +14,14 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 public class JokeCommand implements ServerCommand{
 	
+	
+	
+	
 	Jokes jokes = new Jokes().withDefaultSuppliers();
 	Random rand = new Random();
+	Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
-		
-		Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-		
 		
 		EmbedBuilder builder = new EmbedBuilder();
 		
@@ -33,5 +34,7 @@ public class JokeCommand implements ServerCommand{
 		message.delete().queue();
 		channel.sendMessage(builder.build()).queue();
 	}
+	
+	
 
 }

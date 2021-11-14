@@ -68,7 +68,7 @@ public class TrackInfoCommand implements ServerCommand{
 			
 			channel.sendMessage(new EmbedBuilder().setDescription("Ich spiel nix").build()).queue();
 		}
-		
+		message.addReaction("U+1F51E").queue();
 	}
 
 }

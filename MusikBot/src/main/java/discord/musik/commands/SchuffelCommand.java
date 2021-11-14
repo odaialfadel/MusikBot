@@ -23,6 +23,8 @@ public class SchuffelCommand implements ServerCommand {
 				controller.getQueue().shuffel();
 				message.addReaction("U+1F500").queue();
 				
+				
+				
 			}
 		}
 		

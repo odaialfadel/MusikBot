@@ -2,6 +2,7 @@ package discord.manage;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import discord.commands.ArabJokesCommand;
 import discord.commands.ChangePrefixCommand;
 import discord.commands.ClearCommand;
 import discord.commands.ClientInfo;
@@ -35,6 +36,7 @@ public class CommandManager {
 		
 		this.commands.put("clear", new ClearCommand());
 		this.commands.put("joke", new JokeCommand());
+		this.commands.put("nokta", new ArabJokesCommand());
 		this.commands.put("help", new HelpCommand());
 		this.commands.put("hug", new HugCommand());
 		this.commands.put("info", new ClientInfo());

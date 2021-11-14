@@ -19,14 +19,14 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class PlayCommand implements ServerCommand{
 	
+	Random rand  = new Random();
+	Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
 
 	@Override
 	public void preformCommand(Member member, TextChannel channel, Message message) {
 		
-		
-		Random rand  = new Random();
-		Color color = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
-		
+		message.addReaction("U+1F50A").queue();
+
 		String[] args = message.getContentDisplay().split("\\s+");
 		
 		if(args.length > 1) {
