@@ -3,7 +3,6 @@ package discord.commands;
 import java.awt.Color;
 import java.time.OffsetDateTime;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 import discord.commands.types.ServerCommand;
@@ -30,7 +29,7 @@ public class ChangePrefixCommand implements ServerCommand{
 			try {
 				
 				TOKEN.changePrefix(args[1]);
-				message.delete().queueAfter(2, TimeUnit.SECONDS);
+				
 				EmbedBuilder builder = new EmbedBuilder();
 				builder.setDescription("```diff\r\n Prefix wurde von("+args[0].charAt(0)+") auf ("+args[1]+") geandert!\r\n```" +  member.getUser().getAsMention());
 				builder.setColor(color);
@@ -38,6 +37,7 @@ public class ChangePrefixCommand implements ServerCommand{
 				builder.setTimestamp(OffsetDateTime.now());
 				message.delete().queue();
 				channel.sendMessage(builder.build()).queue();
+				message.delete().queue();
 				return;
 			}catch(NumberFormatException e){
 				e.printStackTrace();

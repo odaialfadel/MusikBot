@@ -20,6 +20,7 @@ public class CommandListner extends ListenerAdapter {
 			TextChannel channel = event.getTextChannel();
 			
 			String prefix = "";
+			//um den Prefix aus dem Config-Datei zu lesen
 			TOKEN.readProperty();
 			if(TOKEN.getPrefix()!=null) {
 				prefix = TOKEN.getPrefix();

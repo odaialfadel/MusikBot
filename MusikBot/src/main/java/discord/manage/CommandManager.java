@@ -9,6 +9,7 @@ import discord.commands.ClientInfo;
 import discord.commands.HelpCommand;
 import discord.commands.HugCommand;
 import discord.commands.JokeCommand;
+import discord.commands.GifCommand;
 import discord.commands.PreviewCommand;
 import discord.commands.ReactCommand;
 import discord.commands.ReactRolesCommand;
@@ -52,6 +53,7 @@ public class CommandManager {
 		this.commands.put("random", new SchuffelCommand());
 		this.commands.put("ti", new TrackInfoCommand());
 		this.commands.put("prefix", new ChangePrefixCommand());
+		this.commands.put("gif", new GifCommand());
 		
 	}
 	public boolean preform(String command,Member m, TextChannel channel, Message message) {

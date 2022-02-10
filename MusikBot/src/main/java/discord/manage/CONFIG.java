@@ -8,7 +8,9 @@ import java.util.Properties;
 
 public class CONFIG {
 	
-	private String TOKEN, PREFIX;
+	private String TOKEN, PREFIX,API;
+	
+
 	Properties config = new Properties();
 	
 	FileInputStream fis;
@@ -23,7 +25,7 @@ public class CONFIG {
 			config.load(fis);
 			setToken(config.getProperty("token"));
 			setPrefix(config.getProperty("prefix"));
-			
+			setAPI(config.getProperty("api"));
 			
 		} catch (IOException e) {
 			System.err.println("File doesent exist");
@@ -102,6 +104,12 @@ public class CONFIG {
 
 	public void setPrefix(String prefix) {
 		this.PREFIX = prefix;
+	}
+	public String getAPI() {
+		return API;
+	}
+	public void setAPI(String aPI) {
+		API = aPI;
 	}
 	
 

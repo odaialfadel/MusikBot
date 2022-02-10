@@ -6,6 +6,7 @@
   <name>MusikBot</name>
   
   <repositories>
+  
   	<repository>
   	 	 <id>dv8tion</id>
    		 <name>m2-dv8tion</name>
@@ -104,6 +105,12 @@
   			<artifactId>random-joke-crawler</artifactId>
   			<version>0.1.8</version>
 	</dependency>
+	<dependency>
+		<groupId>at.mukprojects</groupId>
+		<artifactId>giphy4j</artifactId>
+		<version>1.0.1</version>
+	</dependency>
+	
 	
   </dependencies>
   
